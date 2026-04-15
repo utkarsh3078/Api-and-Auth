@@ -1,4 +1,3 @@
-import { use } from "react";
 import ApiError from "../../common/utils/api-error";
 import {
   generateAccessToken,
@@ -45,6 +44,8 @@ const login = async ({ email, password }) => {
   }
 
   //Somehow i will check password
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) throw ApiError.unauthorized("Invalid email or password");
 
   if (!userData.isVerified) {
     throw ApiError.forbidden("Pls verify your email");
@@ -99,6 +100,12 @@ const forgotPassword = async (email) => {
   await userData.save({ validateBeforeSave: false });
 
   //TODO: send email to user with rawToken
+};
+
+const getMe = async (userId) => {
+  const User = await user.findById(userId);
+  if (!user) throw ApiError.notFound("User not found");
+  return user;
 };
 
 export { register, login, refresh, logout };
