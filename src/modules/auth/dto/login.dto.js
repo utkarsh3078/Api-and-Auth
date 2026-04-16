@@ -1,5 +1,5 @@
 import Joi from "joi";
-import baseDto from "../../../common/dto/baseDto";
+import baseDto from "../../../common/dto/baseDto.js";
 
 class LoginDto extends baseDto {
   static schema = Joi.object({

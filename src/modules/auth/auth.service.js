@@ -1,11 +1,12 @@
-import ApiError from "../../common/utils/api-error";
+import crypto from "crypto";
+import ApiError from "../../common/utils/api-error.js";
 import {
   generateAccessToken,
   generateRefreshToken,
   generateResetToken,
   verifyRefreshToken,
-} from "../../common/utils/jwt.utils";
-import user from "./auth.model";
+} from "../../common/utils/jwt.utils.js";
+import user from "./auth.model.js";
 
 const hashToken = (token) =>
   crypto.createHash("sha256").update(token).digest("hex");
@@ -108,4 +109,4 @@ const getMe = async (userId) => {
   return user;
 };
 
-export { register, login, refresh, logout };
+export { register, login, refresh, logout, getMe };

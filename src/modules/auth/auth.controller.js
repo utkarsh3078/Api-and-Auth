@@ -1,12 +1,12 @@
-import * as authService from "./auth.service";
-import ApiResponse from "../../common/utils/api-res";
+import * as authService from "./auth.service.js";
+import ApiResponse from "../../common/utils/api-res.js";
 
-const register = async () => {
+const register = async (req, res) => {
   const user = await authService.register(req.body);
   ApiResponse.created(res, "Registeration success", user);
 };
 
-const login = async () => {
+const login = async (req, res) => {
   const { user, accessToken, refreshToken } = await authService.login(req.body);
 
   res.cookie("refreshToken", refreshToken, {
@@ -35,4 +35,4 @@ const getMe = async (req, res) => {
   ApiResponse.ok(res, "User data fetched successfully", user);
 };
 
-export { register };
+export { register, login, logout, getMe };
